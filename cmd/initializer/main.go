@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"os/signal"
 	"path/filepath"
@@ -11,7 +12,12 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/heptiolabs/healthcheck"
+	"github.com/day253/healthcheck"
+	"github.com/lwolf/kubereplay/helpers"
+	"github.com/lwolf/kubereplay/pkg/apis/kubereplay/v1alpha1"
+	"github.com/lwolf/kubereplay/pkg/client/clientset/versioned"
+	"github.com/lwolf/kubereplay/pkg/client/informers/externalversions"
+	kubereplayv1alpha1lister "github.com/lwolf/kubereplay/pkg/client/listers/kubereplay/v1alpha1"
 	"k8s.io/api/apps/v1beta1"
 	apiv1 "k8s.io/api/core/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -25,13 +31,6 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/tools/clientcmd"
-
-	"github.com/lwolf/kubereplay/helpers"
-	"github.com/lwolf/kubereplay/pkg/apis/kubereplay/v1alpha1"
-	"github.com/lwolf/kubereplay/pkg/client/clientset/versioned"
-	"github.com/lwolf/kubereplay/pkg/client/informers/externalversions"
-	kubereplayv1alpha1lister "github.com/lwolf/kubereplay/pkg/client/listers/kubereplay/v1alpha1"
-	"net/http"
 )
 
 const (

@@ -3,20 +3,18 @@ package main
 import (
 	"flag"
 	"log"
-	// Import auth/gcp to connect to GKE clusters remotely
 	"net/http"
 	"time"
 
-	"github.com/heptiolabs/healthcheck"
+	"github.com/day253/healthcheck"
 	configlib "github.com/kubernetes-sigs/kubebuilder/pkg/config"
 	"github.com/kubernetes-sigs/kubebuilder/pkg/inject/run"
 	"github.com/kubernetes-sigs/kubebuilder/pkg/install"
 	"github.com/kubernetes-sigs/kubebuilder/pkg/signals"
-	extensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
-	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
-
 	"github.com/lwolf/kubereplay/pkg/inject"
 	"github.com/lwolf/kubereplay/pkg/inject/args"
+	extensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 )
 
 var installCRDs = flag.Bool("install-crds", true, "install the CRDs used by the controller as part of startup")
