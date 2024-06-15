@@ -9,7 +9,7 @@ ROOT_DIR=${PWD}
 GOVERSION ?= 1.9.3
 HARDWARE=$(shell uname -m)
 
-.PHONY: changelog build build-controller build-apiserver docker static release install_deps
+.PHONY: changelog build build-controller build-initializer docker static release install_deps
 
 golang:
 	@echo "--> Go Version"
@@ -25,7 +25,7 @@ build: golang build-info
 	@echo "--> Compiling the project"
 	@mkdir -p bin
 	go build -ldflags "${LFLAGS}" -o bin/${NAME}-controller cmd/controller/main.go
-	go build -ldflags "${LFLAGS}" -o bin/${NAME}-apiserver cmd/apiserver/main.go
+	go build -ldflags "${LFLAGS}" -o bin/${NAME}-initializer cmd/initializer/main.go
 
 build-image: bin/linux/$(OPERATOR_NAME)
 	docker build . -t $(IMAGE):$(VERSION)
@@ -35,10 +35,10 @@ build-controller: golang build-info
 	@mkdir -p bin
 	go build -o bin/${NAME}-controller cmd/controller/main.go
 
-build-apiserver: golang build-info
+build-initializer: golang build-info
 	@echo "--> Compiling the project"
 	@mkdir -p bin
-	go build -o bin/${NAME}-apiserver cmd/apiserver/main.go
+	go build -o bin/${NAME}-initializer cmd/initializer/main.go
 
 docker-build:
 	@echo "--> Compiling the project"
